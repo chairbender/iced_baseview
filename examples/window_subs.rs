@@ -85,7 +85,9 @@ impl Application for MyProgram {
             .width(Length::Fill)
             .align_x(Alignment::Center)
             .push(Text::new(format!("{}", self.count)).size(50))
-            .push(Space::new(20.0, 20.0))
+            .push(Space::new()
+                      .width(20.0)
+                      .height(20.0))
             .push(Button::new(Text::new("Close window")).on_press(Message::CloseWindow));
 
         Container::new(content)

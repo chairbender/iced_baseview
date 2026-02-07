@@ -119,7 +119,7 @@ where
                         window_info.physical_size().width,
                         window_info.physical_size().height,
                     ),
-                    scale,
+                    scale as f32,
                 );
 
                 self.viewport_version = self.viewport_version.wrapping_add(1);
@@ -183,7 +183,7 @@ where
 
                     self.viewport = Viewport::with_physical_size(
                         self.viewport.physical_size(),
-                        self.system_scale_factor,
+                        self.system_scale_factor as f32,
                     );
 
                     self.viewport_version = self.viewport_version.wrapping_add(1);
@@ -201,7 +201,7 @@ where
                     self.scale_policy = WindowScalePolicy::ScaleFactor(*new_scale);
 
                     self.viewport =
-                        Viewport::with_physical_size(self.viewport.physical_size(), *new_scale);
+                        Viewport::with_physical_size(self.viewport.physical_size(), *new_scale as f32);
 
                     self.viewport_version = self.viewport_version.wrapping_add(1);
                 }

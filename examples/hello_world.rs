@@ -1,3 +1,4 @@
+use iced_widget::rule;
 use iced_baseview::{
     baseview::{Size, WindowOpenOptions, WindowScalePolicy},
     widget::{Column, Container, Rule, Text},
@@ -22,6 +23,8 @@ struct MyProgram;
 impl Application for MyProgram {
     type Message = ();
     type Flags = ();
+    // todo: was broken by https://github.com/iced-rs/iced/commit/0111f514a11fdda7db69ca0c99ad751194665d17
+    //  my fix was to just remove Default trait, but a more robust approach might use Option to wrap theme instead
     type Theme = Theme;
     type Executor = iced_baseview::executor::Default;
 
@@ -42,7 +45,7 @@ impl Application for MyProgram {
             .width(Length::Fill)
             .align_x(Alignment::Center)
             .push(Text::new("Hello World!"))
-            .push(Rule::horizontal(10));
+            .push(rule::horizontal(10));
 
         Container::new(content)
             .width(Length::Fill)

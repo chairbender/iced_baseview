@@ -30,7 +30,7 @@ use futures::channel::mpsc;
 use std::cell::RefCell;
 use std::mem::ManuallyDrop;
 use std::rc::Rc;
-
+use iced_graphics::Shell;
 #[cfg(feature = "trace")]
 pub use profiler::Profiler;
 #[cfg(feature = "trace")]
@@ -56,7 +56,7 @@ where
     type Message: std::fmt::Debug + Send + 'static;
 
     /// The theme used to draw the [`Application`].
-    type Theme: Default + DefaultStyle;
+    type Theme:  DefaultStyle;
 
     /// The [`Executor`] that will run commands and subscriptions.
     ///
@@ -213,7 +213,7 @@ where
             (settings.window.size.height * scale) as u32,
         );
 
-        iced_graphics::Viewport::with_physical_size(physical_size, scale)
+        iced_graphics::Viewport::with_physical_size(physical_size, scale as f32)
     };
 
     let (runtime_tx, runtime_rx) = mpsc::unbounded::<Action<A::Message>>();
@@ -244,7 +244,8 @@ where
     let window06 = crate::conversion::convert_window(window);
 
     let graphics_settings = settings.graphics_settings;
-    let mut compositor = runtime.block_on(C::new(graphics_settings, window06.clone()))?;
+    // TODO: is cloning twice really okay?
+    let mut compositor = runtime.block_on(C::new(graphics_settings, window06.clone(), window06.clone(), Shell::headless()))?;
     let surface = compositor.create_surface(
         window06,
         viewport.physical_width(),
@@ -702,7 +703,7 @@ pub fn run_action<A, C>(
             _ => {}
         },
         Action::System(action) => match action {
-            crate::runtime::system::Action::QueryInformation(_channel) => {
+            crate::runtime::system::Action::GetInformation(_channel) => {
                 #[cfg(feature = "system")]
                 {
                     let graphics_info = compositor.fetch_information();
@@ -713,7 +714,9 @@ pub fn run_action<A, C>(
                         let _ = _channel.send(information);
                     });
                 }
-            }
+            },
+            // todo: need to implement these
+            iced_runtime::system::Action::GetTheme(_) | iced_runtime::system::Action::NotifyTheme(_) => todo!()
         },
         Action::Widget(operation) => {
             let mut current_operation = Some(operation);
@@ -740,6 +743,8 @@ pub fn run_action<A, C>(
             // ignore errors when closing
             let _ = window_queue.close_window();
         }
+        // todo: need to implement these as well
         Action::Reload => todo!(),
+        iced_runtime::Action::Image(_) => todo!(),
     }
 }

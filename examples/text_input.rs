@@ -95,8 +95,12 @@ impl Application for MyProgram {
         container
             .push("Use a text input to ask for different kinds of information.")
             .push(text_input.secure(is_secure))
-            .push(checkbox("Enable password mode", is_secure).on_toggle(Message::ToggleSecureInput))
-            .push(checkbox("Show icon", is_showing_icon).on_toggle(Message::ToggleTextInputIcon))
+            .push(checkbox(is_secure)
+                .label("Enable password mode")
+                .on_toggle(Message::ToggleSecureInput))
+            .push(checkbox(is_showing_icon)
+                .label("Show icon")
+                .on_toggle(Message::ToggleTextInputIcon))
             .push(
                 "A text input produces a message every time it changes. It is \
                  very easy to keep track of its contents:",

@@ -105,7 +105,8 @@ pub mod keyboard {
     //! Listen and react to keyboard events.
     pub use crate::core::keyboard::key;
     pub use crate::core::keyboard::{Event, Key, Location, Modifiers};
-    pub use iced_runtime::futures::keyboard::{on_key_press, on_key_release};
+    // TODO: do we even need this anymore?
+    pub use iced_runtime::futures::keyboard::listen;
 }
 
 pub mod mouse {

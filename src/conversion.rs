@@ -104,6 +104,8 @@ pub fn baseview_to_iced_events(
                     modifiers: *iced_modifiers,
                     location,
                     text,
+                    // TODO: was missing previously - should this be the default?
+                    repeat: false,
                 }));
             } else {
                 iced_events.push(IcedEvent::Keyboard(IcedKeyEvent::KeyReleased {
@@ -683,7 +685,7 @@ pub fn convert_mouse_interaction(
         ICursor::Grab => BCursor::HandGrabbing,
         ICursor::Text => BCursor::Text,
         ICursor::Crosshair => BCursor::Crosshair,
-        ICursor::Working => BCursor::Working,
+        ICursor::Progress => BCursor::Working,
         ICursor::Grabbing => BCursor::HandGrabbing,
         ICursor::ResizingHorizontally => BCursor::ColResize,
         ICursor::ResizingVertically => BCursor::RowResize,
@@ -696,6 +698,8 @@ pub fn convert_mouse_interaction(
         ICursor::Move => BCursor::Move,
         ICursor::Copy => BCursor::Copy,
         ICursor::Help => BCursor::Help,
+        // TODO: other unhandled stuff
+        _ => todo!(),
     }
 }
 
