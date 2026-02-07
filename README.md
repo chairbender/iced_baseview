@@ -1,3 +1,12 @@
+# Fork / Branch Note
+
+This fork / branch simply takes [this PR](https://github.com/BillyDM/iced_baseview/pull/43)
+And points at iced 0.14 instead of its main branch.
+
+The main explanation for this can be [found in my other repo](https://github.com/chairbender/nih-plug)
+
+Original readme follows below...
+
 # `iced_baseview`
 
 ![Test](https://github.com/BillyDM/iced_baseview/workflows/Rust/badge.svg)

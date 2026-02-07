@@ -29,13 +29,14 @@ system = ["dep:sysinfo"]
 trace = []
 
 [dependencies]
+# TODO: why this specific commit? Still needed? why not reference a specific / newer version?
 baseview = { git = "https://github.com/RustAudio/baseview.git", rev = "579130ecb4f9f315ae52190af42f0ea46aeaa4a2" }
 cfg-if = "1"
 window_clipboard = "0.4.1"
-iced_runtime = "0.13"
-iced_renderer = "0.13"
-iced_graphics = "0.13"
-iced_widget = "0.13"
+iced_runtime = "0.14"
+iced_renderer = "0.14"
+iced_graphics = "0.14"
+iced_widget = "0.14"
 keyboard-types = { version = "0.6", default-features = false }
 log = "0.4"
 raw-window-handle = "0.5"
