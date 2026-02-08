@@ -28,7 +28,9 @@ trace = []
 toggle_debug = []
 
 [dependencies]
-baseview = { git = "https://github.com/RustAudio/baseview.git", rev = "579130ecb4f9f315ae52190af42f0ea46aeaa4a2" }
+# depend on same version used in our fixed nih_plugin.
+# TODO: Not sure why we need this specific commit, can we change this now?
+baseview = { git = "https://github.com/RustAudio/baseview.git", rev = "3724a00c970a9cd10a3494fa3c37bca66d631bb7" }
 cfg-if = "1"
 window_clipboard = "0.4.1"
 iced_runtime = "0.14"

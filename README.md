@@ -17,7 +17,8 @@ the real iced 0.14 branch that I addressed...
 * Refactored a few various changes in iced APIs where the way of constructing / building different structs was changed.
 * Some various switch statements were missing arms, which are added (currently just todos, IDK what they should be)
 * keyboard event requires specifying repeat: true/false. I just left it as false for now.
-* 
+* depend on baseview commit 3724a00c970a9cd10a3494fa3c37bca66d631bb7 to match the version mentioned in the above-linked fork.
+  I have no idea why we need this specific commit, I am just following the instructions.
 
 Original readme follows below...
 # `iced_baseview`
