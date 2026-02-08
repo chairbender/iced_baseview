@@ -31,10 +31,12 @@ use std::cell::RefCell;
 use std::mem::ManuallyDrop;
 use std::rc::Rc;
 use iced_graphics::Shell;
+use iced_runtime::system::theme;
 #[cfg(feature = "trace")]
 pub use profiler::Profiler;
 #[cfg(feature = "trace")]
 use tracing::{info_span, instrument::Instrument};
+use crate::theme::Mode;
 
 /// An interactive, native cross-platform application.
 ///
@@ -244,7 +246,6 @@ where
     let window06 = crate::conversion::convert_window(window);
 
     let graphics_settings = settings.graphics_settings;
-    // TODO: is cloning twice really okay?
     let mut compositor = runtime.block_on(C::new(graphics_settings, window06.clone(), window06.clone(), Shell::headless()))?;
     let surface = compositor.create_surface(
         window06,
@@ -715,8 +716,17 @@ pub fn run_action<A, C>(
                     });
                 }
             },
-            // todo: need to implement these
-            iced_runtime::system::Action::GetTheme(_) | iced_runtime::system::Action::NotifyTheme(_) => todo!()
+            iced_runtime::system::Action::GetTheme(_channel) => {
+                // todo: Actually detect the theme
+                let _ = std::thread::spawn(move || {
+                    log::warn!("GetTheme is not yet implemented, defaulting to Dark mode");
+                    let _ = _channel.send(Mode::Dark);
+                });
+            }
+            iced_runtime::system::Action::NotifyTheme(_theme) => {
+                // todo: not sure what it's supposed to do here
+                log::warn!("NotifyTheme is not yet implemented");
+            }
         },
         Action::Widget(operation) => {
             let mut current_operation = Some(operation);
@@ -743,8 +753,13 @@ pub fn run_action<A, C>(
             // ignore errors when closing
             let _ = window_queue.close_window();
         }
-        // todo: need to implement these as well
-        Action::Reload => todo!(),
-        iced_runtime::Action::Image(_) => todo!(),
+        Action::Reload => {
+            // TODO: implement
+            log::warn!("Action::Reload is not yet implemented");
+        },
+        Action::Image(_) => {
+            // TODO: implement
+            log::warn!("Action::Image is not yet implemented");
+        },
     }
 }

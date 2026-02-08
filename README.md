@@ -5,7 +5,7 @@ And points at iced 0.14 instead of its main branch.
 
 The main explanation for this can be [found in my other repo](https://github.com/chairbender/nih-plug)
 
-# Additional Changes
+## Additional Changes
 Not sure why, but even with the PR I based this on, there were some issues when using
 the real iced 0.14 branch that I addressed...
 * lib.rs: iced_runtime::futures::keyboard event handling was changed to match iced 0.14
@@ -19,6 +19,12 @@ the real iced 0.14 branch that I addressed...
 * keyboard event requires specifying repeat: true/false. I just left it as false for now.
 * depend on baseview commit 3724a00c970a9cd10a3494fa3c37bca66d631bb7 to match the version mentioned in the above-linked fork.
   I have no idea why we need this specific commit, I am just following the instructions.
+
+## Unfinished Changes
+* There are several new action enums iced can send that need to be implemented in application.rs
+* conversions.rs
+  * key repeat always passed as false, should be actually tracked and passed in as true/false
+  * unhandled ICursor / BCursor mappings 
 
 Original readme follows below...
 # `iced_baseview`

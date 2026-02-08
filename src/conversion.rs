@@ -9,6 +9,7 @@ use iced_runtime::keyboard::Modifiers as IcedModifiers;
 use keyboard_types::Modifiers as BaseviewModifiers;
 use raw_window_handle::HasRawDisplayHandle;
 use raw_window_handle::HasRawWindowHandle;
+use crate::mouse::Interaction;
 
 pub fn baseview_to_iced_events(
     event: BaseEvent,
@@ -698,8 +699,15 @@ pub fn convert_mouse_interaction(
         ICursor::Move => BCursor::Move,
         ICursor::Copy => BCursor::Copy,
         ICursor::Help => BCursor::Help,
-        // TODO: other unhandled stuff
-        _ => todo!(),
+        Interaction::Hidden => BCursor::Hidden,
+        // TODO: not sure what to map this to in baseview - need new BCursor there?
+        Interaction::ContextMenu => BCursor::Default,
+        Interaction::Wait => BCursor::Working,
+        Interaction::Alias => BCursor::Alias,
+        Interaction::NoDrop => BCursor::NotAllowed,
+        Interaction::ResizingColumn => BCursor::ColResize,
+        Interaction::ResizingRow => BCursor::RowResize,
+        Interaction::AllScroll => BCursor::AllScroll,
     }
 }
 
